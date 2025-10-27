@@ -117,6 +117,12 @@
             color: white;
         }
 
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .deliverables-list {
             list-style-type: none;
             padding-left: 0;
@@ -291,6 +297,64 @@
                 flex-direction: column;
                 gap: 20px;
             }
+            .payment-table {
+                font-size: 13px;
+            }
+            .payment-table th,
+            .payment-table td {
+                padding: 8px 6px;
+            }
+            .section-title {
+                font-size: 16px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .payment-table {
+                font-size: 11px;
+            }
+            .payment-table th,
+            .payment-table td {
+                padding: 6px 4px;
+            }
+            /* Stack table for very small screens */
+            .payment-table thead {
+                display: none;
+            }
+            .payment-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 2px solid #34495e;
+                border-radius: 5px;
+                background-color: white;
+            }
+            .payment-table td {
+                display: block;
+                text-align: right;
+                padding: 10px;
+                border: none;
+                border-bottom: 1px solid #ecf0f1;
+            }
+            .payment-table td:last-child {
+                border-bottom: none;
+            }
+            .payment-table td:before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                color: #34495e;
+            }
+            .total-row td {
+                background-color: #3498db !important;
+                color: white;
+                font-weight: bold;
+            }
         }
     </style>
 </head>
@@ -345,41 +409,43 @@
             </div>
             <div class="clause">
                 <p><span class="clause-number">3.2</span> Payment shall be made in three (3) installments as follows:</p>
-                <table class="payment-table">
-                    <thead>
-                        <tr>
-                            <th>Payment Stage</th>
-                            <th>Percentage</th>
-                            <th>Amount (ETB)</th>
-                            <th>Due Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>First Payment (Upfront)</td>
-                            <td>30%</td>
-                            <td>45,000</td>
-                            <td>Upon signing this Agreement</td>
-                        </tr>
-                        <tr>
-                            <td>Second Payment (Milestone)</td>
-                            <td>30%</td>
-                            <td>45,000</td>
-                            <td>Upon completion of design and 50% functionality</td>
-                        </tr>
-                        <tr>
-                            <td>Third Payment (Final)</td>
-                            <td>40%</td>
-                            <td>60,000</td>
-                            <td>Upon project completion and delivery</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td colspan="2">Total Project Cost</td>
-                            <td>150,000</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="payment-table">
+                        <thead>
+                            <tr>
+                                <th>Payment Stage</th>
+                                <th>Percentage</th>
+                                <th>Amount (ETB)</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Payment Stage">First Payment (Upfront)</td>
+                                <td data-label="Percentage">30%</td>
+                                <td data-label="Amount (ETB)">45,000</td>
+                                <td data-label="Due Date">Upon signing this Agreement</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Payment Stage">Second Payment (Milestone)</td>
+                                <td data-label="Percentage">30%</td>
+                                <td data-label="Amount (ETB)">45,000</td>
+                                <td data-label="Due Date">Upon completion of design and 50% functionality</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Payment Stage">Third Payment (Final)</td>
+                                <td data-label="Percentage">40%</td>
+                                <td data-label="Amount (ETB)">60,000</td>
+                                <td data-label="Due Date">Upon project completion and delivery</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td data-label="Description" colspan="2">Total Project Cost</td>
+                                <td data-label="Total Amount">150,000</td>
+                                <td data-label=""></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="clause">
                 <p><span class="clause-number">3.3</span> All payments shall be made via bank transfer or other mutually agreed payment method.</p>
