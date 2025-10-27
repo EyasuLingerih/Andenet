@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Development Agreement - Andenet Ayele PLC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 60px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+
+        .parties {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .party {
+            margin-bottom: 15px;
+        }
+
+        .party-label {
+            font-weight: bold;
+            color: #2c3e50;
+            display: inline-block;
+            width: 150px;
+        }
+
+        .clause {
+            margin-bottom: 20px;
+        }
+
+        .clause-number {
+            font-weight: bold;
+            color: #2c3e50;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .payment-table th,
+        .payment-table td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .payment-table th {
+            background-color: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+
+        .payment-table tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #3498db !important;
+            color: white;
+        }
+
+        .deliverables-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .deliverables-list li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #ecf0f1;
+            border-left: 3px solid #3498db;
+            padding-left: 15px;
+        }
+
+        .deliverables-list li:before {
+            content: "✓ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .signature-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .signature-boxes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 40px;
+        }
+
+        .signature-box {
+            flex: 1;
+        }
+
+        .signature-line {
+            border-top: 2px solid #2c3e50;
+            margin-top: 80px;
+            padding-top: 10px;
+        }
+
+        .signature-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .signature-canvas {
+            border: 2px dashed #bdc3c7;
+            border-radius: 5px;
+            cursor: crosshair;
+            background-color: #fefefe;
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .signature-canvas.signed {
+            border-color: #27ae60;
+            border-style: solid;
+        }
+
+        .signature-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-clear {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-sign {
+            background-color: #27ae60;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-sign:hover {
+            background-color: #229954;
+        }
+
+        .btn-sign:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .btn-download {
+            background-color: #3498db;
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .btn-download:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-download:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .date-signed {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 40px;
+            }
+            .signature-controls,
+            .btn-download,
+            .status-message {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            .signature-boxes {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Software Development Agreement</h1>
+            <p>Contract Number: ADA-2025-001</p>
+            <p>Date: <span id="contractDate"></span></p>
+        </div>
+
+        <div class="parties">
+            <div class="party">
+                <span class="party-label">Client:</span>
+                <strong>Andenet Ayele Electromechanical and General Construction PLC</strong>
+            </div>
+            <div class="party">
+                <span class="party-label">Developer:</span>
+                <strong>Eyasu Lingerih</strong>
+            </div>
+        </div>
+
+        <div class="section">
+            <p>This Software Development Agreement ("Agreement") is entered into as of the date signed below, by and between <strong>Andenet Ayele Electromechanical and General Construction PLC</strong> ("Client") and <strong>Eyasu Lingerih</strong> ("Developer").</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">1. Project Scope</h2>
+            <div class="clause">
+                <p>The Developer agrees to design, develop, and deliver the following software solutions for the Client:</p>
+                <ul class="deliverables-list">
+                    <li>Front Page Website - A professional, responsive website showcasing the Client's business</li>
+                    <li>In-House Workflow Web Application - A custom web-based application for internal workflow management</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">2. Project Timeline</h2>
+            <div class="clause">
+                <p><span class="clause-number">2.1</span> The project shall be completed within <strong>two (2) months</strong> from the date of this Agreement.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">2.2</span> The Developer will provide regular progress updates to the Client throughout the development process.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">3. Payment Terms</h2>
+            <div class="clause">
+                <p><span class="clause-number">3.1</span> The total project cost is <strong>150,000 ETB</strong> (One Hundred Fifty Thousand Ethiopian Birr).</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">3.2</span> Payment shall be made in three (3) installments as follows:</p>
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th>Payment Stage</th>
+                            <th>Percentage</th>
+                            <th>Amount (ETB)</th>
+                            <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>First Payment (Upfront)</td>
+                            <td>30%</td>
+                            <td>45,000</td>
+                            <td>Upon signing this Agreement</td>
+                        </tr>
+                        <tr>
+                            <td>Second Payment (Milestone)</td>
+                            <td>30%</td>
+                            <td>45,000</td>
+                            <td>Upon completion of design and 50% functionality</td>
+                        </tr>
+                        <tr>
+                            <td>Third Payment (Final)</td>
+                            <td>40%</td>
+                            <td>60,000</td>
+                            <td>Upon project completion and delivery</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="2">Total Project Cost</td>
+                            <td>150,000</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">3.3</span> All payments shall be made via bank transfer or other mutually agreed payment method.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">4. Maintenance and Support</h2>
+            <div class="clause">
+                <p><span class="clause-number">4.1</span> The Developer shall provide <strong>free maintenance and technical support for six (6) months</strong> following the final delivery and acceptance of the project.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">4.2</span> Free maintenance includes:</p>
+                <ul class="deliverables-list">
+                    <li>Bug fixes and error corrections</li>
+                    <li>Minor updates and adjustments</li>
+                    <li>Technical support and troubleshooting</li>
+                </ul>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">4.3</span> After the six (6) month free maintenance period, the parties may enter into a separate paid maintenance contract under mutually agreed terms and pricing.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">4.4</span> Major feature additions or significant modifications requested during or after the maintenance period shall be subject to separate negotiation and pricing.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">5. Intellectual Property Rights</h2>
+            <div class="clause">
+                <p><span class="clause-number">5.1</span> Upon final payment, all intellectual property rights, including source code, designs, and documentation, shall be transferred to the Client.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">5.2</span> The Developer retains the right to use the project as a portfolio piece unless otherwise agreed.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">6. Confidentiality</h2>
+            <div class="clause">
+                <p><span class="clause-number">6.1</span> Both parties agree to maintain confidentiality regarding proprietary information, business data, and sensitive materials shared during the project.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">7. Warranties and Liabilities</h2>
+            <div class="clause">
+                <p><span class="clause-number">7.1</span> The Developer warrants that the delivered software will be free from major defects and will function as specified during the free maintenance period.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">7.2</span> The Developer's liability shall be limited to the total amount paid under this Agreement.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">8. Termination</h2>
+            <div class="clause">
+                <p><span class="clause-number">8.1</span> Either party may terminate this Agreement with written notice if the other party breaches any material term and fails to remedy such breach within fourteen (14) days of written notice.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">8.2</span> In the event of termination, the Client shall pay for all work completed up to the date of termination.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">9. General Provisions</h2>
+            <div class="clause">
+                <p><span class="clause-number">9.1</span> This Agreement shall be governed by the laws of Ethiopia.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">9.2</span> Any disputes arising from this Agreement shall be resolved through good faith negotiation or, if necessary, through appropriate legal channels in Ethiopia.</p>
+            </div>
+            <div class="clause">
+                <p><span class="clause-number">9.3</span> This Agreement constitutes the entire agreement between the parties and supersedes all prior discussions and understandings.</p>
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <h2 class="section-title">Signatures</h2>
+            <p style="margin-bottom: 30px;">By signing below, both parties agree to the terms and conditions outlined in this Agreement.</p>
+
+            <div id="statusMessage"></div>
+
+            <div class="signature-boxes">
+                <div class="signature-box">
+                    <div class="signature-label">Client Signature</div>
+                    <canvas id="clientSignature" class="signature-canvas" width="350" height="150"></canvas>
+                    <div class="signature-controls">
+                        <button class="btn btn-clear" onclick="clearSignature('client')">Clear</button>
+                    </div>
+                    <div class="signature-line">
+                        <strong>Andenet Ayele Electromechanical and General Construction PLC</strong><br>
+                        <span style="font-size: 14px; color: #7f8c8d;">Authorized Representative</span>
+                        <div class="date-signed" id="clientDate"></div>
+                    </div>
+                </div>
+
+                <div class="signature-box">
+                    <div class="signature-label">Developer Signature</div>
+                    <canvas id="developerSignature" class="signature-canvas" width="350" height="150"></canvas>
+                    <div class="signature-controls">
+                        <button class="btn btn-clear" onclick="clearSignature('developer')">Clear</button>
+                    </div>
+                    <div class="signature-line">
+                        <strong>Eyasu Lingerih</strong><br>
+                        <span style="font-size: 14px; color: #7f8c8d;">Software Developer</span>
+                        <div class="date-signed" id="developerDate"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="finalizeBtn" class="btn btn-download" onclick="finalizeAgreement()" disabled>
+                Finalize & Download Agreement
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Set contract date to today
+        document.getElementById('contractDate').textContent = new Date().toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Signature functionality
+        const canvases = {
+            client: document.getElementById('clientSignature'),
+            developer: document.getElementById('developerSignature')
+        };
+
+        const contexts = {
+            client: canvases.client.getContext('2d'),
+            developer: canvases.developer.getContext('2d')
+        };
+
+        const signatureStatus = {
+            client: false,
+            developer: false
+        };
+
+        let isDrawing = false;
+        let currentCanvas = null;
+
+        // Setup canvas drawing
+        Object.keys(canvases).forEach(party => {
+            const canvas = canvases[party];
+            const ctx = contexts[party];
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch support
+            canvas.addEventListener('touchstart', handleTouch);
+            canvas.addEventListener('touchmove', handleTouch);
+            canvas.addEventListener('touchend', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                currentCanvas = party;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            function draw(e) {
+                if (!isDrawing || currentCanvas !== party) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#2c3e50';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+
+            function stopDrawing() {
+                if (isDrawing && currentCanvas === party) {
+                    isDrawing = false;
+                    markAsSigned(party);
+                }
+            }
+
+            function handleTouch(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' :
+                                                  e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+        });
+
+        function markAsSigned(party) {
+            signatureStatus[party] = true;
+            canvases[party].classList.add('signed');
+            document.getElementById(party + 'Date').textContent = 'Signed on: ' +
+                new Date().toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            updateFinalizeButton();
+        }
+
+        function clearSignature(party) {
+            contexts[party].clearRect(0, 0, canvases[party].width, canvases[party].height);
+            signatureStatus[party] = false;
+            canvases[party].classList.remove('signed');
+            document.getElementById(party + 'Date').textContent = '';
+            updateFinalizeButton();
+            updateStatusMessage();
+        }
+
+        function updateFinalizeButton() {
+            const finalizeBtn = document.getElementById('finalizeBtn');
+            if (signatureStatus.client && signatureStatus.developer) {
+                finalizeBtn.disabled = false;
+                updateStatusMessage('success');
+            } else {
+                finalizeBtn.disabled = true;
+                updateStatusMessage('warning');
+            }
+        }
+
+        function updateStatusMessage(type = 'warning') {
+            const statusDiv = document.getElementById('statusMessage');
+            if (signatureStatus.client && signatureStatus.developer) {
+                statusDiv.innerHTML = '<div class="status-success">✓ Both parties have signed. You may now finalize and download the agreement.</div>';
+            } else {
+                const missing = [];
+                if (!signatureStatus.client) missing.push('Client');
+                if (!signatureStatus.developer) missing.push('Developer');
+                statusDiv.innerHTML = `<div class="status-warning">⚠ Waiting for signatures from: ${missing.join(' and ')}</div>`;
+            }
+        }
+
+        function finalizeAgreement() {
+            if (!signatureStatus.client || !signatureStatus.developer) {
+                alert('Both parties must sign before finalizing the agreement.');
+                return;
+            }
+
+            // Hide buttons for print
+            document.querySelectorAll('.signature-controls').forEach(el => el.style.display = 'none');
+            document.getElementById('finalizeBtn').style.display = 'none';
+            document.getElementById('statusMessage').style.display = 'none';
+
+            // Trigger print dialog
+            window.print();
+
+            // Show buttons again after print
+            setTimeout(() => {
+                document.querySelectorAll('.signature-controls').forEach(el => el.style.display = 'flex');
+                document.getElementById('finalizeBtn').style.display = 'block';
+                document.getElementById('statusMessage').style.display = 'block';
+            }, 1000);
+        }
+
+        // Initialize status message
+        updateStatusMessage();
+    </script>
+</body>
+</html>
