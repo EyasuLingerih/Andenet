@@ -1,1597 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Proposal - Andenet Ayele</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #00f2ff;
-            --secondary: #7b2ff7;
-            --accent: #ff006e;
-            --dark: #0a0e27;
-            --darker: #050816;
-            --light: #ffffff;
-            --gray: #8892b0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .bg-animation::before,
-        .bg-animation::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .bg-animation::before {
-            background: var(--primary);
-            top: -100px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-
-        .bg-animation::after {
-            background: var(--secondary);
-            bottom: -100px;
-            right: -100px;
-            animation-delay: 5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(100px, -100px) scale(1.1); }
-            66% { transform: translate(-100px, 100px) scale(0.9); }
-        }
-
-        /* Container - Mobile First */
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header - Mobile First */
-        header {
-            text-align: center;
-            padding: 30px 15px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-        }
-
-        .logo {
-            font-size: 1.8em;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            animation: glow 3s ease-in-out infinite;
-            line-height: 1.2;
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 20px var(--primary)); }
-            50% { filter: drop-shadow(0 0 40px var(--secondary)); }
-        }
-
-        .tagline {
-            font-size: 0.9em;
-            color: var(--gray);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        .client-name {
-            font-size: 1.1em;
-            color: var(--primary);
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        /* Navigation - Mobile First */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            padding: 15px 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 242, 255, 0.1);
-        }
-
-        nav a {
-            color: var(--gray);
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.85em;
-        }
-
-        nav a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            transition: left 0.5s ease;
-        }
-
-        nav a:hover {
-            color: var(--light);
-            background: rgba(0, 242, 255, 0.1);
-        }
-
-        nav a:hover::before {
-            left: 100%;
-        }
-
-        /* Card Styles - Mobile First */
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.05), transparent);
-            transition: left 0.7s ease;
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 242, 255, 0.2);
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card-title {
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--primary), var(--light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-            line-height: 1.3;
-        }
-
-        .card-subtitle {
-            font-size: 1.1em;
-            color: var(--primary);
-            margin: 20px 0 10px 0;
-            padding-left: 12px;
-            border-left: 3px solid var(--primary);
-            line-height: 1.3;
-        }
-
-        /* Grid Layouts - Mobile First */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        /* Feature Box - Mobile First */
-        .feature-box {
-            background: rgba(0, 242, 255, 0.05);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            border-radius: 12px;
-            padding: 18px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-box::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-box:hover {
-            background: rgba(0, 242, 255, 0.1);
-            transform: scale(1.05);
-        }
-
-        .feature-box:hover::after {
-            opacity: 0.1;
-        }
-
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 12px;
-        }
-
-        .feature-title {
-            font-size: 1.1em;
-            color: var(--primary);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        /* Table Styles - Mobile First */
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 20px 0;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 242, 255, 0.1);
-        }
-
-        table {
-            width: 100%;
-            min-width: 600px;
-            border-collapse: collapse;
-            margin: 0;
-            font-size: 0.85em;
-        }
-
-        th {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--light);
-            padding: 10px 8px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.9em;
-        }
-
-        td {
-            padding: 10px 8px;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-        }
-
-        tr:hover {
-            background: rgba(0, 242, 255, 0.05);
-        }
-
-        /* Pricing Box - Mobile First */
-        .pricing-box {
-            background: linear-gradient(135deg, rgba(123, 47, 247, 0.1), rgba(0, 242, 255, 0.1));
-            border: 2px solid var(--primary);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, var(--primary), transparent 30%);
-            animation: rotate 4s linear infinite;
-        }
-
-        .pricing-box::after {
-            content: '';
-            position: absolute;
-            inset: 3px;
-            background: var(--dark);
-            border-radius: 18px;
-            z-index: 1;
-        }
-
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-
-        .pricing-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .price {
-            font-size: 2.2em;
-            font-weight: 900;
-            color: var(--primary);
-            margin: 15px 0;
-            line-height: 1.2;
-        }
-
-        .price-label {
-            color: var(--gray);
-            font-size: 0.9em;
-        }
-
-        /* Timeline - Mobile First */
-        .timeline {
-            position: relative;
-            padding-left: 35px;
-            margin: 25px 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary), var(--secondary));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -38px;
-            top: 20px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-        }
-
-        .timeline-week {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        /* Button - Mobile First */
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--light);
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.9em;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 40px rgba(0, 242, 255, 0.4);
-        }
-
-        .btn-text {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* List Styles */
-        .check-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .check-list li {
-            padding: 12px 0 12px 35px;
-            position: relative;
-            color: var(--gray);
-        }
-
-        .check-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        /* Stats - Mobile First */
-        .stat-box {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 242, 255, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 242, 255, 0.2);
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: 900;
-            color: var(--primary);
-            display: block;
-            line-height: 1.2;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            margin-top: 10px;
-        }
-
-        /* Footer - Mobile First */
-        footer {
-            text-align: center;
-            padding: 40px 15px;
-            margin-top: 50px;
-            border-top: 1px solid rgba(0, 242, 255, 0.2);
-        }
-
-        .footer-note {
-            color: var(--gray);
-            font-size: 0.9em;
-            margin-top: 20px;
-        }
-
-        /* Tablet Styles */
-        @media (min-width: 768px) {
-            .table-wrapper {
-                overflow-x: visible;
-                border: none;
-            }
-
-            table {
-                min-width: auto;
-                margin: 20px 0;
-            }
-            .container {
-                padding: 25px;
-                max-width: 800px;
-            }
-
-            header {
-                padding: 50px 25px;
-                margin-bottom: 35px;
-            }
-
-            .logo {
-                font-size: 2.5em;
-            }
-
-            .tagline {
-                font-size: 1.1em;
-            }
-
-            .client-name {
-                font-size: 1.3em;
-            }
-
-            nav {
-                gap: 15px;
-                padding: 18px;
-                border-radius: 35px;
-                margin-bottom: 45px;
-            }
-
-            nav a {
-                padding: 10px 18px;
-                font-size: 0.95em;
-            }
-
-            .card {
-                padding: 30px;
-                margin-bottom: 35px;
-                border-radius: 18px;
-            }
-
-            .card-title {
-                font-size: 1.8em;
-            }
-
-            .card-subtitle {
-                font-size: 1.2em;
-                margin: 25px 0 12px 0;
-            }
-
-            .grid-2 {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
-                margin: 25px 0;
-            }
-
-            .grid-3 {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 18px;
-            }
-
-            .feature-box {
-                padding: 22px;
-            }
-
-            .feature-icon {
-                font-size: 2.3em;
-            }
-
-            .feature-title {
-                font-size: 1.15em;
-            }
-
-            table {
-                font-size: 0.95em;
-            }
-
-            th, td {
-                padding: 12px 10px;
-            }
-
-            .pricing-box {
-                padding: 25px;
-            }
-
-            .price {
-                font-size: 2.6em;
-            }
-
-            .timeline {
-                padding-left: 45px;
-                margin: 35px 0;
-            }
-
-            .timeline-item {
-                padding: 18px;
-                margin-bottom: 35px;
-            }
-
-            .btn {
-                padding: 14px 35px;
-                font-size: 1em;
-            }
-
-            .stat-box {
-                padding: 25px;
-            }
-
-            .stat-number {
-                font-size: 2.3em;
-            }
-
-            footer {
-                padding: 50px 25px;
-                margin-top: 65px;
-            }
-        }
-
-        /* Desktop Styles */
-        @media (min-width: 1024px) {
-            table {
-                margin: 30px 0;
-            }
-            .container {
-                max-width: 1200px;
-                padding: 30px;
-            }
-
-            header {
-                padding: 60px 30px;
-                margin-bottom: 50px;
-            }
-
-            .logo {
-                font-size: 3em;
-            }
-
-            .tagline {
-                font-size: 1.2em;
-            }
-
-            .client-name {
-                font-size: 1.5em;
-            }
-
-            nav {
-                gap: 20px;
-                padding: 20px;
-                border-radius: 50px;
-                margin-bottom: 60px;
-            }
-
-            nav a {
-                padding: 10px 20px;
-                font-size: 1em;
-            }
-
-            .card {
-                padding: 40px;
-                margin-bottom: 40px;
-                border-radius: 20px;
-            }
-
-            .card-title {
-                font-size: 2em;
-            }
-
-            .card-subtitle {
-                font-size: 1.3em;
-                margin: 30px 0 15px 0;
-            }
-
-            .grid-2 {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 30px;
-                margin: 30px 0;
-            }
-
-            .grid-3 {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                margin: 30px 0;
-            }
-
-            .feature-box {
-                padding: 25px;
-                border-radius: 15px;
-            }
-
-            .feature-icon {
-                font-size: 2.5em;
-            }
-
-            .feature-title {
-                font-size: 1.2em;
-            }
-
-            table {
-                font-size: 1em;
-                margin: 30px 0;
-            }
-
-            th, td {
-                padding: 15px;
-            }
-
-            .pricing-box {
-                padding: 30px;
-                border-radius: 20px;
-            }
-
-            .price {
-                font-size: 3em;
-            }
-
-            .timeline {
-                padding-left: 50px;
-                margin: 40px 0;
-            }
-
-            .timeline-item {
-                padding: 20px;
-                margin-bottom: 40px;
-                border-radius: 10px;
-            }
-
-            .timeline-item::before {
-                left: -53px;
-                top: 25px;
-                width: 15px;
-                height: 15px;
-            }
-
-            .btn {
-                padding: 15px 40px;
-                border-radius: 50px;
-                font-size: 1em;
-            }
-
-            .stat-box {
-                padding: 30px;
-                border-radius: 15px;
-            }
-
-            .stat-number {
-                font-size: 2.5em;
-            }
-
-            footer {
-                padding: 60px 30px;
-                margin-top: 80px;
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            animation: fadeIn 0.6s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Badge */
-        .badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: rgba(0, 242, 255, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            color: var(--primary);
-            font-size: 0.8em;
-            font-weight: 600;
-            margin: 5px;
-        }
-
-        /* Highlight Box */
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(123, 47, 247, 0.1));
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .payment-summary {
-            background: rgba(0, 242, 255, 0.05);
-            border: 2px solid var(--primary);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-        }
-
-        .payment-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(0, 242, 255, 0.1);
-        }
-
-        .payment-row:last-child {
-            border-bottom: none;
-            font-size: 1.3em;
-            font-weight: 700;
-            color: var(--primary);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software Development Agreement</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 40px;
+      background-color: #fdfdfd;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2e3a59;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+    }
+
+    h2.section-title {
+      color: #2e3a59;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 6px;
+      margin-top: 40px;
+    }
+
+    p, li {
+      font-size: 15px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .clause {
+      margin-bottom: 15px;
+    }
+
+    .clause-number {
+      font-weight: bold;
+      color: #2e3a59;
+      margin-right: 5px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .payment-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .payment-table th,
+    .payment-table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .payment-table th {
+      background-color: #f4f4f4;
+    }
+
+    .payment-table .total-row td {
+      font-weight: bold;
+      background-color: #fafafa;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .signature-block {
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .signature {
+      width: 45%;
+    }
+
+    .signature-line {
+      border-bottom: 1px solid #000;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      .signature-block {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .signature {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="bg-animation"></div>
-    
-    <div class="container">
-        <header class="fade-in">
-            <div class="logo">PROJECT PROPOSAL</div>
-            <p class="tagline">Workflow Management System with AI Integration</p>
-            <p class="client-name">Andenet Ayele Electromechanical and General Construction</p>
-            <p style="color: var(--gray); margin-top: 20px;">Prepared: October 27, 2025</p>
-        </header>
+  <h1>Software Development Agreement</h1>
 
-        <nav class="fade-in">
-            <a href="#overview">Overview</a>
-            <a href="#solution">Solution</a>
-            <a href="#features">Features</a>
-            <a href="#timeline">Timeline</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#payment">Payment</a>
-            <a href="#maintenance">Maintenance</a>
-        </nav>
+  <div class="section">
+    <h2 class="section-title">1. Parties</h2>
+    <div class="clause">
+      <p><span class="clause-number">1.1</span> This Agreement is made between <strong>CoreLogic Apps</strong> ("Developer") and <strong>[Client Name]</strong> ("Client").</p>
+    </div>
+  </div>
 
-        <!-- Executive Summary -->
-        <section id="overview" class="card fade-in">
-            <h2 class="card-title">Executive Summary</h2>
-            <p>This proposal outlines a comprehensive digital solution designed to streamline business operations for Andenet Ayele Electromechanical and General Construction. The system will provide integrated workflow management for sales, logistics, and customer support operations, with scalable infrastructure hosted on EthioTelecom Cloud and enhanced by AI-powered automation.</p>
-            
-            <div class="grid-3" style="margin-top: 40px;">
-                <div class="stat-box">
-                    <span class="stat-number">2</span>
-                    <span class="stat-label">Months Delivery</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">2</span>
-                    <span class="stat-label">Key Deliverables</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">6</span>
-                    <span class="stat-label">Months Free Support</span>
-                </div>
-            </div>
-        </section>
+  <div class="section">
+    <h2 class="section-title">2. Project Description</h2>
+    <div class="clause">
+      <p><span class="clause-number">2.1</span> The Developer agrees to design, develop, and deliver a custom web application as per the specifications agreed upon by both parties. The Client agrees to provide all necessary materials, feedback, and approvals in a timely manner.</p>
+    </div>
+  </div>
 
-        <!-- Client Requirements -->
-        <section class="card fade-in">
-            <h2 class="card-title">Client Requirements</h2>
-            <div class="grid-2">
-                <ul class="check-list">
-                    <li>Dedicated Cloud Infrastructure on EthioTelecom</li>
-                    <li>Custom Ethiopian Domain (.et)</li>
-                    <li>Role-Based Database System</li>
-                </ul>
-                <ul class="check-list">
-                    <li>Custom Workflow Application</li>
-                    <li>Local AI Integration</li>
-                    <li>Scalable for Future Growth</li>
-                </ul>
-            </div>
-        </section>
+  <div class="section">
+    <h2 class="section-title">3. Payment Terms</h2>
 
-        <!-- Technical Solution -->
-        <section id="solution" class="card fade-in">
-            <h2 class="card-title">Technical Solution</h2>
-            
-            <div class="grid-3">
-                <div class="feature-box">
-                    <div class="feature-icon">🎨</div>
-                    <div class="feature-title">Frontend</div>
-                    <p style="color: var(--gray);">React + TailwindCSS</p>
-                    <span class="badge">Responsive</span>
-                    <span class="badge">Modern UI</span>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">⚙️</div>
-                    <div class="feature-title">Backend</div>
-                    <p style="color: var(--gray);">Node.js + Express</p>
-                    <span class="badge">RESTful API</span>
-                    <span class="badge">Scalable</span>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">🗄️</div>
-                    <div class="feature-title">Database</div>
-                    <p style="color: var(--gray);">Supabase (PostgreSQL)</p>
-                    <span class="badge">Auth Included</span>
-                    <span class="badge">RBAC</span>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">🤖</div>
-                    <div class="feature-title">AI Component</div>
-                    <p style="color: var(--gray);">Local LLM (Llama/Ollama)</p>
-                    <span class="badge">On-Premise</span>
-                    <span class="badge">Privacy</span>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">☁️</div>
-                    <div class="feature-title">Hosting</div>
-                    <p style="color: var(--gray);">EthioTelecom Cloud</p>
-                    <span class="badge">4 vCPUs</span>
-                    <span class="badge">8GB RAM</span>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">🔒</div>
-                    <div class="feature-title">Security</div>
-                    <p style="color: var(--gray);">SSL + Firewall</p>
-                    <span class="badge">Encrypted</span>
-                    <span class="badge">Secure</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Core Features -->
-        <section id="features" class="card fade-in">
-            <h2 class="card-title">Core Features</h2>
-            
-            <div class="grid-2">
-                <div class="feature-box">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="card-subtitle">Sales Management</h3>
-                    <ul class="check-list">
-                        <li>Lead tracking & pipeline</li>
-                        <li>Quote & invoice generation</li>
-                        <li>Analytics dashboard</li>
-                        <li>CRM capabilities</li>
-                    </ul>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">📦</div>
-                    <h3 class="card-subtitle">Logistics Module</h3>
-                    <ul class="check-list">
-                        <li>Project tracking</li>
-                        <li>Resource allocation</li>
-                        <li>Inventory management</li>
-                        <li>Vendor management</li>
-                    </ul>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">💬</div>
-                    <h3 class="card-subtitle">Customer Support</h3>
-                    <ul class="check-list">
-                        <li>Ticket management</li>
-                        <li>Communication history</li>
-                        <li>Request tracking</li>
-                        <li>Team collaboration</li>
-                    </ul>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">🤖</div>
-                    <h3 class="card-subtitle">AI-Powered</h3>
-                    <ul class="check-list">
-                        <li>Smart recommendations</li>
-                        <li>Predictive analytics</li>
-                        <li>Automated reports</li>
-                        <li>Natural language queries</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline -->
-        <section id="timeline" class="card fade-in">
-            <h2 class="card-title">Implementation Timeline</h2>
-            <p style="color: var(--gray); margin-bottom: 30px;">Project delivery in 2 months (8 weeks)</p>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-week">WEEKS 1-2</div>
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">Foundation & Frontend Website</h3>
-                    <p style="color: var(--gray);">Professional front page website design and development, responsive layout, company branding integration</p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-week">WEEKS 3-5</div>
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">Workflow Application Development</h3>
-                    <p style="color: var(--gray);">In-house workflow web application, backend setup, database design, core functionality implementation</p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-week">WEEKS 6-7</div>
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">Integration & Testing</h3>
-                    <p style="color: var(--gray);">System integration, comprehensive testing, bug fixes, security audit, performance optimization</p>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-week">WEEK 8</div>
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">Deployment & Training</h3>
-                    <p style="color: var(--gray);">Production deployment, user training, documentation handover, go-live support</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing -->
-        <section id="pricing" class="card fade-in">
-            <h2 class="card-title">Pricing Breakdown</h2>
-
-            <h3 class="card-subtitle">A. Infrastructure Costs (Paid to EthioTelecom)</h3>
-            <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Description</th>
-                        <th style="text-align: right;">Price (ETB)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>EthioTelecom Cloud Server</td>
-                        <td>telecloudECS4|8 (4 vCPUs, 8GB RAM, 400GB) - Year 1</td>
-                        <td style="text-align: right; color: var(--primary);">141,479.68</td>
-                    </tr>
-                    <tr>
-                        <td>Domain & SSL</td>
-                        <td>.et domain registration, SSL certificate</td>
-                        <td style="text-align: right; color: var(--primary);">3,000.00</td>
-                    </tr>
-                    <tr style="background: rgba(0, 242, 255, 0.05);">
-                        <td colspan="2" style="font-weight: 600;">INFRASTRUCTURE TOTAL</td>
-                        <td style="text-align: right; font-weight: 700; color: var(--primary); font-size: 1.2em;">144,479.68</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-
-            <h3 class="card-subtitle">B. Professional Services (Development & Implementation)</h3>
-            <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Description</th>
-                        <th style="text-align: right;">Price (ETB)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>System Architecture & Setup</td>
-                        <td>Server configuration, security hardening, backup setup</td>
-                        <td style="text-align: right;">15,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>Database Design</td>
-                        <td>Schema design, Supabase setup, RBAC</td>
-                        <td style="text-align: right;">20,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>Workflow Application</td>
-                        <td>React frontend, Node.js backend, 3 modules</td>
-                        <td style="text-align: right;">70,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>AI Model Integration</td>
-                        <td>Local AI deployment, configuration, training</td>
-                        <td style="text-align: right;">25,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>Testing & QA</td>
-                        <td>Comprehensive testing, security audit</td>
-                        <td style="text-align: right;">10,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>Training & Documentation</td>
-                        <td>4-hour on-site training, manuals, tutorials</td>
-                        <td style="text-align: right;">10,000.00</td>
-                    </tr>
-                    <tr style="background: rgba(0, 242, 255, 0.05);">
-                        <td colspan="2" style="font-weight: 700;">TOTAL SERVICE COST</td>
-                        <td style="text-align: right; font-weight: 900; color: var(--primary); font-size: 1.3em;">150,000.00</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-
-            <h3 class="card-subtitle">C. Total Project Investment</h3>
-            <div class="payment-summary">
-                <div class="payment-row">
-                    <span>Infrastructure (paid to EthioTelecom)</span>
-                    <span>ETB 144,479.68</span>
-                </div>
-                <div class="payment-row">
-                    <span>Professional Services (paid to developer)</span>
-                    <span>ETB 150,000.00</span>
-                </div>
-                <div class="payment-row">
-                    <span>TOTAL PROJECT INVESTMENT</span>
-                    <span>ETB 294,479.68</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Payment Schedule -->
-        <section id="payment" class="card fade-in">
-            <h2 class="card-title">Payment Schedule</h2>
-            <p style="color: var(--gray); margin-bottom: 30px;">Professional services will be paid in three installments</p>
-
-            <div class="grid-3">
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--gray); margin-bottom: 10px;">First Payment (30%)</h3>
-                        <div class="price">45,000</div>
-                        <div class="price-label">ETB - Upon contract signing</div>
-                        <p style="color: var(--gray); margin-top: 20px;">Project initiation & development begins</p>
-                    </div>
-                </div>
-
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--gray); margin-bottom: 10px;">Second Payment (30%)</h3>
-                        <div class="price">45,000</div>
-                        <div class="price-label">ETB - At milestone (50% completion)</div>
-                        <p style="color: var(--gray); margin-top: 20px;">Design approval & functionality demo</p>
-                    </div>
-                </div>
-
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--gray); margin-bottom: 10px;">Final Payment (40%)</h3>
-                        <div class="price">60,000</div>
-                        <div class="price-label">ETB - Upon completion</div>
-                        <p style="color: var(--gray); margin-top: 20px;">System delivered, tested & approved</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="highlight-box" style="margin-top: 30px;">
-                <h3 style="color: var(--primary); margin-bottom: 15px;">Infrastructure Payment (Separate)</h3>
-                <p><strong>Amount:</strong> ETB 144,479.68</p>
-                <p><strong>Paid To:</strong> EthioTelecom (directly by client)</p>
-                <p><strong>Timing:</strong> Required before server deployment (Week 1)</p>
-            </div>
-
-            <h3 class="card-subtitle">Payment Summary</h3>
-            <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Payment To</th>
-                        <th>Amount (ETB)</th>
-                        <th>Timing</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Developer (First Payment - 30%)</td>
-                        <td style="color: var(--primary);">45,000.00</td>
-                        <td>Contract signing</td>
-                    </tr>
-                    <tr>
-                        <td>EthioTelecom (Infrastructure)</td>
-                        <td style="color: var(--primary);">144,479.68</td>
-                        <td>Week 1</td>
-                    </tr>
-                    <tr>
-                        <td>Developer (Second Payment - 30%)</td>
-                        <td style="color: var(--primary);">45,000.00</td>
-                        <td>Milestone (50% completion)</td>
-                    </tr>
-                    <tr>
-                        <td>Developer (Final Payment - 40%)</td>
-                        <td style="color: var(--primary);">60,000.00</td>
-                        <td>Project completion</td>
-                    </tr>
-                    <tr style="background: rgba(0, 242, 255, 0.05);">
-                        <td style="font-weight: 700;">TOTAL PROJECT COST</td>
-                        <td style="font-weight: 900; color: var(--primary); font-size: 1.2em;">294,479.68</td>
-                        <td style="font-weight: 600;">Over 2 months</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-        </section>
-
-        <!-- Alternative Hosting Options -->
-        <section class="card fade-in">
-            <h2 class="card-title">Alternative Hosting Options</h2>
-            <p style="color: var(--gray); margin-bottom: 30px;">International hosting alternatives with different cost structures</p>
-            
-            <div class="grid-3">
-                <div class="pricing-box" style="border-color: var(--accent);">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--light); margin-bottom: 15px;">EthioTelecom Cloud</h3>
-                        <span class="badge" style="background: var(--accent); color: var(--light); border-color: var(--accent);">RECOMMENDED</span>
-                        <div class="price" style="font-size: 1.8em;">144,480</div>
-                        <div class="price-label">ETB / year</div>
-                        <ul class="check-list" style="text-align: left; margin-top: 20px;">
-                            <li>4 vCPUs, 8GB RAM, 400GB storage</li>
-                            <li>Local hosting in Ethiopia</li>
-                            <li>Data sovereignty & compliance</li>
-                            <li>No bandwidth surprises</li>
-                            <li>Dedicated resources</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--light); margin-bottom: 15px;">Render Hosting</h3>
-                        <div class="price" style="font-size: 1.8em;">80,000</div>
-                        <div class="price-label">ETB / year</div>
-                        <ul class="check-list" style="text-align: left; margin-top: 20px;">
-                            <li>1 CPU, 4GB RAM, managed DB</li>
-                            <li>International hosting (US/EU)</li>
-                            <li>Predictable pricing</li>
-                            <li>Good for Node.js apps</li>
-                            <li>Less computing power</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--light); margin-bottom: 15px;">Vercel + Render</h3>
-                        <div class="price" style="font-size: 1.8em;">70,000</div>
-                        <div class="price-label">ETB / year</div>
-                        <ul class="check-list" style="text-align: left; margin-top: 20px;">
-                            <li>Global CDN frontend</li>
-                            <li>Separate backend hosting</li>
-                            <li>Best performance worldwide</li>
-                            <li>Usage-based pricing</li>
-                            <li>Potential cost overruns</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="card-subtitle">Updated Total Project Costs</h3>
-            <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Hosting Option</th>
-                        <th>Infrastructure/Year</th>
-                        <th>Development (One-time)</th>
-                        <th>Total Year 1</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="background: rgba(255, 0, 110, 0.05);">
-                        <td><strong>EthioTelecom Cloud</strong></td>
-                        <td style="color: var(--primary);">ETB 144,480</td>
-                        <td style="color: var(--primary);">ETB 150,000</td>
-                        <td style="color: var(--accent); font-weight: 700;">ETB 294,480</td>
-                    </tr>
-                    <tr>
-                        <td>Render Hosting</td>
-                        <td style="color: var(--primary);">ETB 80,000</td>
-                        <td style="color: var(--primary);">ETB 150,000</td>
-                        <td style="color: var(--primary); font-weight: 700;">ETB 230,000</td>
-                    </tr>
-                    <tr>
-                        <td>Vercel + Render Hybrid</td>
-                        <td style="color: var(--primary);">ETB 70,000</td>
-                        <td style="color: var(--primary);">ETB 150,000</td>
-                        <td style="color: var(--primary); font-weight: 700;">ETB 220,000</td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-
-            <div class="highlight-box" style="margin-top: 30px;">
-                <h3 style="color: var(--primary); margin-bottom: 15px;">Hosting Recommendation</h3>
-                <p><strong>EthioTelecom Cloud</strong> offers the best value with 4x more computing power, local data hosting, and no usage surprises. International options save ~ETB 65,000/year but provide significantly less resources and may incur bandwidth overages with high traffic.</p>
-            </div>
-        </section>
-
-        <!-- Maintenance Plans -->
-        <section id="maintenance" class="card fade-in">
-            <h2 class="card-title">Maintenance & Support</h2>
-
-            <div class="highlight-box" style="margin-bottom: 30px;">
-                <h3 style="color: var(--primary); margin-bottom: 15px;">Included: 6 Months FREE Maintenance</h3>
-                <p style="margin-bottom: 15px;">As part of this agreement, you will receive <strong>six (6) months of complimentary maintenance and support</strong> after project delivery, including:</p>
-                <ul class="check-list">
-                    <li>Bug fixes and error corrections</li>
-                    <li>Minor updates and adjustments</li>
-                    <li>Technical support and troubleshooting</li>
-                    <li>Performance monitoring</li>
-                    <li>Security updates</li>
-                </ul>
-            </div>
-
-            <h3 class="card-subtitle">Post-Free Period: Optional Maintenance Plans</h3>
-            <p style="color: var(--gray); margin-bottom: 30px;">After the 6-month free period, you may choose from these maintenance plans</p>
-
-            <div class="grid-3">
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--light); margin-bottom: 15px;">Monthly Plan</h3>
-                        <div class="price" style="font-size: 2em;">8,500</div>
-                        <div class="price-label">ETB / month</div>
-                        <ul class="check-list" style="text-align: left; margin-top: 30px;">
-                            <li>Technical support (business hours)</li>
-                            <li>Security updates</li>
-                            <li>Performance monitoring</li>
-                            <li>Monthly backups</li>
-                            <li>4 hours adjustments/month</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--light); margin-bottom: 15px;">Semi-Annual Plan</h3>
-                        <div class="price" style="font-size: 2em;">48,000</div>
-                        <div class="price-label">ETB / 6 months</div>
-                        <span class="badge" style="background: var(--accent); color: var(--light); border-color: var(--accent);">Save 6%</span>
-                        <ul class="check-list" style="text-align: left; margin-top: 30px;">
-                            <li>All Monthly Plan benefits</li>
-                            <li>Priority support</li>
-                            <li>Quarterly optimization</li>
-                            <li>Security audit</li>
-                            <li>8 hours enhancements/6mo</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pricing-box">
-                    <div class="pricing-content">
-                        <h3 style="color: var(--light); margin-bottom: 15px;">Annual Plan</h3>
-                        <div class="price" style="font-size: 2em;">90,000</div>
-                        <div class="price-label">ETB / year</div>
-                        <span class="badge" style="background: var(--accent); color: var(--light); border-color: var(--accent);">Save 12%</span>
-                        <ul class="check-list" style="text-align: left; margin-top: 30px;">
-                            <li>All Semi-Annual benefits</li>
-                            <li>24/7 emergency support</li>
-                            <li>AI model retraining</li>
-                            <li>Annual security assessment</li>
-                            <li>20 hours development/year</li>
-                            <li>Dedicated account manager</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Benefits -->
-        <section class="card fade-in">
-            <h2 class="card-title">Benefits & Value Proposition</h2>
-            
-            <div class="grid-2">
-                <div>
-                    <h3 class="card-subtitle">Immediate Benefits</h3>
-                    <ul class="check-list">
-                        <li>Reduce manual processes by 60-70%</li>
-                        <li>Real-time data and analytics</li>
-                        <li>Eliminate paper-based workflows</li>
-                        <li>Enterprise-grade data protection</li>
-                        <li>Modern professional digital presence</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="card-subtitle">Long-Term Value</h3>
-                    <ul class="check-list">
-                        <li>Easy to scale as you grow</li>
-                        <li>Full control of your business data</li>
-                        <li>AI-powered competitive insights</li>
-                        <li>Future-ready modern architecture</li>
-                        <li>Reusable for company expansion</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="highlight-box" style="margin-top: 40px;">
-                <h3 style="color: var(--primary); margin-bottom: 15px;">Return on Investment (ROI)</h3>
-                <div class="grid-2">
-                    <div>
-                        <p><strong>Project Delivery:</strong> 2 months</p>
-                        <p><strong>Total Investment:</strong> 150,000 ETB</p>
-                    </div>
-                    <div>
-                        <p><strong>Free Support Period:</strong> 6 months</p>
-                        <p><strong>Payback Period:</strong> 12-18 months</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scalability -->
-        <section class="card fade-in">
-            <h2 class="card-title">Scalability & Future Expansion</h2>
-            <p style="color: var(--gray); margin-bottom: 30px;">This system is designed with growth in mind</p>
-            
-            <div class="grid-3">
-                <div class="feature-box">
-                    <div class="feature-icon">👥</div>
-                    <h3 class="feature-title">User Scaling</h3>
-                    <p style="color: var(--gray);">Add new users without redesign. No per-user fees in Year 1.</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">🧩</div>
-                    <h3 class="feature-title">Module Expansion</h3>
-                    <p style="color: var(--gray);">Seamlessly add HR, Procurement, Financial modules.</p>
-                </div>
-
-                <div class="feature-box">
-                    <div class="feature-icon">🏢</div>
-                    <h3 class="feature-title">Multi-Company</h3>
-                    <p style="color: var(--gray);">Can be licensed to other companies with custom branding.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Terms -->
-        <section class="card fade-in">
-            <h2 class="card-title">Terms & Conditions</h2>
-            
-            <div class="grid-2">
-                <div>
-                    <h3 class="card-subtitle">Project Scope</h3>
-                    <p style="color: var(--gray);">All work outlined in this proposal is included. Changes to scope require written approval and may affect timeline and cost.</p>
-                    
-                    <h3 class="card-subtitle">Client Responsibilities</h3>
-                    <ul class="check-list">
-                        <li>Provide timely feedback during development</li>
-                        <li>Designate a project liaison</li>
-                        <li>Provide business process documentation</li>
-                        <li>Ensure staff availability for training</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="card-subtitle">Intellectual Property</h3>
-                    <p style="color: var(--gray);">Custom code belongs to the client. Third-party libraries retain their licenses. AI models remain with client.</p>
-                    
-                    <h3 class="card-subtitle">Warranty & Support</h3>
-                    <ul class="check-list">
-                        <li>90-day warranty from go-live</li>
-                        <li>Bug fixes included in maintenance</li>
-                        <li>24/7 emergency support (Annual plan)</li>
-                        <li>All data kept strictly confidential</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Next Steps -->
-        <section class="card fade-in" style="text-align: center;">
-            <h2 class="card-title">Next Steps</h2>
-            <p style="color: var(--gray); margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Ready to transform your business operations with modern technology and AI-powered insights? Let's get started!
-            </p>
-            
-            <div class="grid-2" style="max-width: 800px; margin: 0 auto 40px auto; text-align: left;">
-                <div>
-                    <h3 style="color: var(--primary); margin-bottom: 15px;">1. Review Proposal</h3>
-                    <p style="color: var(--gray);">Review all sections and clarify any questions</p>
-                </div>
-                <div>
-                    <h3 style="color: var(--primary); margin-bottom: 15px;">2. Schedule Discussion</h3>
-                    <p style="color: var(--gray);">Meet to discuss customizations</p>
-                </div>
-                <div>
-                    <h3 style="color: var(--primary); margin-bottom: 15px;">3. Sign Agreement</h3>
-                    <p style="color: var(--gray);">Execute contract and project charter</p>
-                </div>
-                <div>
-                    <h3 style="color: var(--primary); margin-bottom: 15px;">4. Begin Development</h3>
-                    <p style="color: var(--gray);">Work starts within 3 business days</p>
-                </div>
-            </div>
-
-            <a href="agreement.html" class="btn">
-                <span class="btn-text">View & Sign Agreement</span>
-            </a>
-        </section>
-
-        <!-- Contact -->
-        <section class="card fade-in">
-            <h2 class="card-title">Contact Information</h2>
-            <p style="color: var(--gray); margin-bottom: 30px; text-align: center;">
-                For questions or to accept this proposal, please contact:
-            </p>
-            
-            <div style="text-align: center; color: var(--gray);">
-                <p><strong style="color: var(--primary);">Project Lead:</strong> Eyasu Lingerih</p>
-                <p><strong style="color: var(--primary);">Email:</strong> elingerih@gmail.com</p>
-                <p><strong style="color: var(--primary);">Phone:</strong> +251913833414</p>
-                <p><strong style="color: var(--primary);">Available:</strong> Monday-Friday, 8:00 AM - 6:00 PM EAT</p>
-            </div>
-        </section>
-
-        <!-- Conclusion -->
-        <section class="card fade-in" style="background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), rgba(123, 47, 247, 0.05)); border: 2px solid var(--primary);">
-            <h2 class="card-title" style="text-align: center;">Conclusion</h2>
-            <p style="text-align: center; max-width: 900px; margin: 0 auto; color: var(--gray); line-height: 1.8;">
-                This comprehensive solution will transform Andenet Ayele Electromechanical and General Construction's business operations with modern technology, AI-powered insights, and scalable infrastructure. The proposed system offers immediate operational improvements while laying the foundation for future growth.
-            </p>
-            <p style="text-align: center; margin-top: 30px; font-size: 1.2em; color: var(--primary);">
-            <!--      <strong>We look forward to partnering with you on this transformative journey.</strong> -->
-            </p>
-        </section>
-
-        <footer>
-            <div style="font-size: 1.2em; color: var(--primary); margin-bottom: 20px;">
-             <!--    Thank you for your consideration -->
-            </div>
-            <p class="footer-note">This proposal is valid for 30 days from the date of issue.</p>
-            <p class="footer-note" style="margin-top: 20px;">© 2025 Professional IT Solutions. All rights reserved.</p>
-        </footer>
+    <div class="clause">
+      <p><span class="clause-number">3.1</span> The total project cost is <strong>150,000 ETB</strong> (One Hundred Fifty Thousand Ethiopian Birr).</p>
     </div>
 
-    <script>
-        // Smooth scroll for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    <div class="clause">
+      <p><span class="clause-number">3.2</span> Payment shall be made according to the following schedule:</p>
 
-        // Add fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+      <div class="table-wrapper">
+        <table class="payment-table">
+          <thead>
+            <tr>
+              <th>Payment Stage</th>
+              <th>Percentage</th>
+              <th>Amount (ETB)</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Payment Stage">Initial Payment (Upfront)</td>
+              <td data-label="Percentage">45%</td>
+              <td data-label="Amount (ETB)">67,500</td>
+              <td data-label="Due Date">Upon signing this Agreement</td>
+            </tr>
+            <tr>
+              <td data-label="Payment Stage">First Monthly Installment</td>
+              <td data-label="Percentage">11%</td>
+              <td data-label="Amount (ETB)">16,500</td>
+              <td data-label="Due Date">One month after project start</td>
+            </tr>
+            <tr>
+              <td data-label="Payment Stage">Second Monthly Installment</td>
+              <td data-label="Percentage">11%</td>
+              <td data-label="Amount (ETB)">16,500</td>
+              <td data-label="Due Date">Two months after project start</td>
+            </tr>
+            <tr>
+              <td data-label="Payment Stage">Third Monthly Installment</td>
+              <td data-label="Percentage">11%</td>
+              <td data-label="Amount (ETB)">16,500</td>
+              <td data-label="Due Date">Three months after project start</td>
+            </tr>
+            <tr>
+              <td data-label="Payment Stage">Fourth Monthly Installment</td>
+              <td data-label="Percentage">11%</td>
+              <td data-label="Amount (ETB)">16,500</td>
+              <td data-label="Due Date">Four months after project start</td>
+            </tr>
+            <tr>
+              <td data-label="Payment Stage">Fifth Monthly Installment</td>
+              <td data-label="Percentage">11%</td>
+              <td data-label="Amount (ETB)">16,500</td>
+              <td data-label="Due Date">Five months after project start</td>
+            </tr>
+            <tr class="total-row">
+              <td colspan="2">Total Project Cost</td>
+              <td>150,000</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+    <div class="clause">
+      <p><span class="clause-number">3.3</span> All payments shall be made via bank transfer or other mutually agreed payment method.</p>
+    </div>
 
-        document.querySelectorAll('.card, .fade-in').forEach((el) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+    <div class="clause">
+      <p><span class="clause-number">3.4</span> Failure to make a scheduled payment within seven (7) days of the due date may result in temporary suspension of the project until payment is received.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">4. Ownership and Intellectual Property</h2>
+    <div class="clause">
+      <p><span class="clause-number">4.1</span> Upon full payment, ownership rights of the final software deliverables shall be transferred to the Client. CoreLogic Apps retains rights to pre-existing code, libraries, or frameworks used during development.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">5. Confidentiality</h2>
+    <div class="clause">
+      <p><span class="clause-number">5.1</span> Both parties agree to maintain confidentiality regarding all proprietary information, trade secrets, and project-related details shared during the course of this Agreement.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">6. Termination</h2>
+    <div class="clause">
+      <p><span class="clause-number">6.1</span> Either party may terminate this Agreement with written notice if the other party materially breaches its terms. The Client shall compensate the Developer for work completed up to the termination date.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">7. Signatures</h2>
+    <div class="signature-block">
+      <div class="signature">
+        <div class="signature-line"></div>
+        <p><strong>CoreLogic Apps</strong><br />Developer</p>
+      </div>
+      <div class="signature">
+        <div class="signature-line"></div>
+        <p><strong>[Client Name]</strong><br />Client</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 CoreLogic Apps. All rights reserved.</p>
+  </footer>
 </body>
 </html>
